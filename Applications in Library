@@ -1,0 +1,295 @@
+import java.util.*; 
+class book   //Declaring all the details of the book in this class
+{
+String BookName;
+String AuthorName;
+int ISBN_No;
+String Publication;
+}
+class Library    //performing all the operations of the book in this class
+{
+int n=0;
+Scanner sc = new Scanner(System.in);     
+book Booksarr[] = new book[50];     //declaring array for storing books
+void Accept()    //function for accepting book details
+{
+System.out.println("How many books do you want to add??"); //taking user input of number of books to be added
+n= sc.nextInt();
+for(int i=0;i<n;i++)        
+{
+Booksarr[i] = new book(); 
+System.out.println("Name of the book:");
+Booksarr[i].BookName=sc.next();
+System.out.println("Name of the Author:");
+Booksarr[i].AuthorName=sc.next();
+System.out.println("ISBN number of the book:");
+Booksarr[i].ISBN_No=sc.nextInt();
+System.out.println("Publication of the book:");
+Booksarr[i].Publication=sc.next();
+System.out.println("***********");
+}
+}
+void Display()    //function for displaying the book details
+{
+for(int i=0;i<n;i++)
+{
+	System.out.println("Name of the book: " +Booksarr[i].BookName);
+	System.out.println("Name of the author: " +Booksarr[i].AuthorName);
+	System.out.println("ISBN Number of the book: " +Booksarr[i].ISBN_No);
+	System.out.println("Publication of the book: " +Booksarr[i].Publication);
+System.out.println();
+}
+}
+void searchISBN()     //Searching book according to entered ISBN number
+{
+int flag=0;  //if book not found
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter ISBN number you want to search:");  //taking user input of ISBN number
+int ISBN=sc.nextInt(); 
+for(int i=0;i<n;i++)
+{
+if (Booksarr[i].ISBN_No == ISBN)    //condition for searching the book
+{
+	System.out.println("Book of entered ISBN number is found");
+	System.out.println("Name of the book: " +Booksarr[i].BookName);
+	System.out.println("Name of the author: " +Booksarr[i].AuthorName);
+	System.out.println("ISBN Number of the book: " +Booksarr[i].ISBN_No);
+	System.out.println("Publication of the book: " +Booksarr[i].Publication);
+    flag=1; //if book found
+break;
+}
+}
+if(flag==0)
+	System.out.println("Book of entered ISBN number is not found");
+}
+void searchAuthor()  //method for searching book according to author
+{
+Scanner sc = new Scanner(System.in);
+String name;
+int flag=0; 
+System.out.println("Enter the author's name:");
+name=sc.nextLine(); 
+System.out.println("Book of "+name+":");
+for(int i=0;i<n;i++)
+{
+if (Booksarr[i].AuthorName.equals(name))   //condition for searching the book
+{
+System.out.println(Booksarr[i].BookName);
+flag=1;
+}
+}
+if(flag==0)
+	System.out.println("Entered Author's book not found");
+}
+void sortbooks()   //function for sorting books
+{
+int temp;
+String Book_Name_Sort;
+String Author_Name_Sort;
+for(int i=0;i<n;i++) 
+{
+for(int j=0;j<n-i-1;j++) 
+{
+if(Booksarr[j].ISBN_No>Booksarr[j+1].ISBN_No)  //condition for sorting books according to their ISBN number
+{
+temp=Booksarr[j].ISBN_No; 
+Booksarr[j].ISBN_No=Booksarr[j+1].ISBN_No;
+Booksarr[j+1].ISBN_No=temp;
+
+Book_Name_Sort=Booksarr[j].BookName; 
+Booksarr[j].BookName=Booksarr[j+1].BookName;
+Booksarr[j+1].BookName=Book_Name_Sort;
+Author_Name_Sort=Booksarr[j].AuthorName;
+Booksarr[j].AuthorName=Booksarr[j+1].AuthorName;
+Booksarr[j+1].AuthorName=Author_Name_Sort;
+}
+}
+}
+System.out.println("**Sorted list of books acoording to their Author Name,ISBN Number and Book Name**");
+//printing sorted list of books
+System.out.println("Author name\t\tISBN Number\t\tBook name");
+for(int i=0;i<n;i++)
+{
+	System.out.println(Booksarr[i].AuthorName+"\t\t\t"+Booksarr[i].ISBN_No+"\t\t\t"+Booksarr[i].BookName);
+}
+}
+}
+public class AAbc {
+public static void main(String args[])
+{
+Scanner sc = new Scanner(System.in);
+int choice=0;
+Library ob = new Library();    //creating object
+do{ 
+	//list of operations to be performed
+System.out.println("Choose an operation:");
+System.out.println("1.Accept the book details");
+System.out.println("2.Display the book details");
+System.out.println("3.Search a book by ISBN Number");
+System.out.println("4.Search a book by Author");
+System.out.println("5.Sort books by ISBN number");
+choice=sc.nextInt();
+
+switch(choice){
+//Invoking all the methods
+case 1:
+ob.Accept();
+
+break;
+case 2:
+ob.Display();
+
+break;
+case 3:
+ob.searchISBN();
+
+break;
+case 4:
+ob.searchAuthor();
+
+break;
+
+case 5:
+ob.sortbooks();
+break;
+}
+System.out.println("If you want to continue press 1 or else 0");
+choice=sc.nextInt();
+}
+while (choice==1);
+System.out.println("Library is closed");
+}
+}
+
+/* OUTPUT
+ Choose an operation:
+1.Accept the book details
+2.Display the book details
+3.Search a book by ISBN Number
+4.Search a book by Author
+5.Sort books by ISBN number
+1
+How many books do you want to add??
+5
+Name of the book:
+Harry_Potter
+Name of the Author:
+J_K_Rowling
+ISBN number of the book:
+12345
+Publication of the book:
+Bloomsburry
+***********
+Name of the book:
+Mahashweta
+Name of the Author:
+Sudha_Murty
+ISBN number of the book:
+234
+Publication of the book:
+Penguin_India
+***********
+Name of the book:
+A_Little_Book_Of_Happiness
+Name of the Author:
+Ruskin_Bond
+ISBN number of the book:
+8942
+Publication of the book:
+Speaking_Tiger_Books
+***********
+Name of the book:
+Unfinished
+Name of the Author:
+Priyanka_Chopra
+ISBN number of the book:
+345
+Publication of the book:
+Penguin_Random_House
+***********
+Name of the book:
+Our_Moon_Has_Blood_Clots
+Name of the Author:
+Rahul_Pandita
+ISBN number of the book:
+85673
+Publication of the book:
+Penguin_Random_House_India
+***********
+If you want to continue press 1 or else 0
+1
+Choose an operation:
+1.Accept the book details
+2.Display the book details
+3.Search a book by ISBN Number
+4.Search a book by Author
+5.Sort books by ISBN number
+2
+Name of the book: Harry_Potter
+Name of the author: J_K_Rowling
+ISBN Number of the book: 12345
+Publication of the book: Bloomsburry
+Name of the book: Mahashweta
+Name of the author: Sudha_Murty
+ISBN Number of the book: 234
+Publication of the book: Penguin_India
+Name of the book: A_Little_Book_Of_Happiness
+Name of the author: Ruskin_Bond
+ISBN Number of the book: 8942
+Publication of the book: Speaking_Tiger_Books
+Name of the book: Unfinished
+Name of the author: Priyanka_Chopra
+ISBN Number of the book: 345
+Publication of the book: Penguin_Random_House
+Name of the book: Our_Moon_Has_Blood_Clots
+Name of the author: Rahul_Pandita
+ISBN Number of the book: 85673
+Publication of the book: Penguin_Random_House_India
+If you want to continue press 1 or else 0
+1
+Choose an operation:
+1.Accept the book details
+2.Display the book details
+3.Search a book by ISBN Number
+4.Search a book by Author
+5.Sort books by ISBN number
+3
+Enter ISBN number you want to search:
+345
+Book of entered ISBN number is found
+Name of the book: Unfinished
+Name of the author: Priyanka_Chopra
+ISBN Number of the book: 345
+Publication of the book: Penguin_Random_House
+If you want to continue press 1 or else 0
+1
+Choose an operation:
+1.Accept the book details
+2.Display the book details
+3.Search a book by ISBN Number
+4.Search a book by Author
+5.Sort books by ISBN number
+4
+Enter the author's name:
+J_K_Rowling
+Books of J_K_Rowling:
+Harry_Potter
+If you want to continue press 1 or else 0
+1
+Choose an operation:
+1.Accept the book details
+2.Display the book details
+3.Search a book by ISBN Number
+4.Search a book by Author
+5.Sort books by ISBN number
+5
+**Sorted list of books acoording to their Author Name,ISBN Number and Book Name**
+Author name ISBN Number Book name
+Sudha_Murty 234 Mahashweta
+Priyanka_Chopra 345 Unfinished
+Ruskin_Bond 8942 A_Little_Book_Of_Happiness
+J_K_Rowling 12345 Harry_Potter
+Rahul_Pandita 85673 Our_Moon_Has_Blood_Clots
+If you want to continue press 1 or else 0
+0
+Library is closed*/
